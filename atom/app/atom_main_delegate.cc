@@ -137,7 +137,8 @@ void AtomMainDelegate::PreSandboxStartup() {
     return;
 
   if (!command_line->HasSwitch(switches::kEnableMixedSandbox)) {
-    if (command_line->HasSwitch(switches::kEnableSandbox)) {
+    if (command_line->HasSwitch(switches::kEnableSandbox) ||
+    command_line->HasSwitch(switches::kSandboxedNode)) {
       // Disable setuid sandbox since it is not longer required on
       // linux(namespace sandbox is available on most distros).
       command_line->AppendSwitch(::switches::kDisableSetuidSandbox);
@@ -163,10 +164,17 @@ content::ContentBrowserClient* AtomMainDelegate::CreateContentBrowserClient() {
 
 content::ContentRendererClient*
     AtomMainDelegate::CreateContentRendererClient() {
-  if (base::CommandLine::ForCurrentProcess()->HasSwitch(
+  bool use_sandboxed_renderer_client =
+    base::CommandLine::ForCurrentProcess()->HasSwitch(
         switches::kEnableSandbox) ||
       !base::CommandLine::ForCurrentProcess()->HasSwitch(
-        ::switches::kNoSandbox)) {
+        ::switches::kNoSandbox);
+
+  use_sandboxed_renderer_client &=
+    !base::CommandLine::ForCurrentProcess()->HasSwitch(
+      switches::kSandboxedNode);
+
+  if (use_sandboxed_renderer_client) {
     renderer_client_.reset(new AtomSandboxedRendererClient);
   } else {
     renderer_client_.reset(new AtomRendererClient);

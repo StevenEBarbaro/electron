@@ -145,12 +145,21 @@ void InitAsarSupport(v8::Isolate* isolate,
     const char* asar_native = reinterpret_cast<const char*>(
         static_cast<const unsigned char*>(node::asar_data));
     base::StringPiece asar_data(asar_native, sizeof(node::asar_data) - 1);
+
+    const char* preload_bundle_sandboxed_node_native =
+      reinterpret_cast<const char*>(static_cast<const unsigned char*>(
+        node::preload_bundle_sandboxed_node_data));
+    base::StringPiece preload_bundle_sandboxed_node_data(
+      preload_bundle_sandboxed_node_native,
+      sizeof(node::preload_bundle_sandboxed_node_data) - 1);
+
     v8::Local<v8::Value> args[] = {
         process,
         require,
         mate::ConvertToV8(isolate, asar_data),
+        mate::ConvertToV8(isolate, preload_bundle_sandboxed_node_data)
     };
-    result.As<v8::Function>()->Call(result, 3, args);
+    result.As<v8::Function>()->Call(result, 4, args);
   }
 }
 

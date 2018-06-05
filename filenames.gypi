@@ -37,6 +37,7 @@
       'lib/browser/api/touch-bar.js',
       'lib/browser/api/tray.js',
       'lib/browser/api/web-contents.js',
+      'lib/browser/api/sandboxed_node/helper.js',
       'lib/browser/chrome-extension.js',
       'lib/browser/desktop-capturer.js',
       'lib/browser/guest-view-manager.js',
@@ -81,6 +82,10 @@
       'lib/renderer/extensions/storage.js',
       'lib/renderer/extensions/web-navigation.js',
       'lib/worker/init.js',
+    ],
+    'sandboxed_node_browserify_entries': [
+      '<@(js_sources)',
+      'lib/sandboxed_renderer/sandboxed_node_init.js',
     ],
     'js2c_sources': [
       'lib/common/asar.js',

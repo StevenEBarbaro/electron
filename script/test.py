@@ -54,7 +54,7 @@ def main():
   elif sys.platform == 'win32':
     electron = os.path.join(SOURCE_ROOT, 'out', config,
                               '{0}.exe'.format(PROJECT_NAME))
-    resources_path = os.path.join(SOURCE_ROOT, 'out', config)
+    resources_path = os.path.join(SOURCE_ROOT, 'out', config, 'resources')
   else:
     electron = os.path.join(SOURCE_ROOT, 'out', config, PROJECT_NAME)
     resources_path = os.path.join(SOURCE_ROOT, 'out', config)
@@ -116,6 +116,7 @@ def parse_args():
 
 
 def install_instrumented_asar_file(resources_path):
+  print "in install instrumented asar | " + resources_path
   asar_path = os.path.join(resources_path, '{0}.asar'.format(PROJECT_NAME))
   uninstrumented_path = os.path.join(resources_path,
                                       '{0}-original.asar'.format(PROJECT_NAME))

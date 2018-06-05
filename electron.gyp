@@ -518,6 +518,26 @@
           ],
         },
         {
+          'action_name': 'atom_browserify_sandbox_node',
+          'inputs': [
+            '<@(sandboxed_node_browserify_entries)',
+          ],
+          'outputs': [
+            '<(js2c_input_dir)/preload_bundle_sandboxed_node.js',
+          ],
+          'action': [
+            'npm',
+            'run',
+            '--silent',
+            'browserify',
+            '--',
+            'lib/sandboxed_renderer/sandboxed_node_init.js',
+            '--ignore-missing',
+            '-o',
+            '<@(_outputs)',
+          ],
+        },
+        {
           'action_name': 'atom_browserify_isolated_context',
           'inputs': [
             '<!@(python tools/list-browserify-deps.py <(isolated_args))'
@@ -551,6 +571,7 @@
           'inputs': [
             # List all input files that should trigger a rebuild with js2c
             '<@(js2c_sources)',
+            '<(js2c_input_dir)/preload_bundle_sandboxed_node.js',
             '<(js2c_input_dir)/preload_bundle.js',
             '<(js2c_input_dir)/isolated_bundle.js',
           ],

@@ -270,6 +270,13 @@ It creates a new `BrowserWindow` with native properties as set by the `options`.
       are more limited. Read more about the option [here](sandbox-option.md).
       **Note:** This option is currently experimental and may change or be
       removed in future Electron releases.
+    * `sandboxedNode` Boolean (optional) - If set, this will sandbox the renderer
+      associated with the window, making it compatible with the Chromium
+      OS-level sandbox and leaving Node.js enabled. This is not the same as
+      the `nodeIntegration` option. Some modules are decorated and/or 
+      accessible via the remote module.
+      **Note:** This option is currently experimental and may change or be
+      removed in future Electron releases.
     * `session` [Session](session.md#class-session) (optional) - Sets the session used by the
       page. Instead of passing the Session object directly, you can also choose to
       use the `partition` option instead, which accepts a partition string. When

@@ -190,6 +190,7 @@ const char kNodeIntegration[]  = "node-integration";
 const char kContextIsolation[] = "context-isolation";
 const char kGuestInstanceID[]  = "guest-instance-id";
 const char kOpenerID[]         = "opener-id";
+const char kSandboxedNode[]    = "sandboxed-node";
 const char kScrollBounce[]     = "scroll-bounce";
 const char kHiddenPage[]       = "hidden-page";
 const char kNativeWindowOpen[] = "native-window-open";
